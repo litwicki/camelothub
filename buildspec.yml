@@ -11,6 +11,7 @@ phases:
             #- npm run test
     build:
         commands:
+            - echo "CODEBUILD_SRC_DIR:" . $CODEBUILD_SRC_DIR
             - npm run build
             - zip -r camelothub.zip build
 artifacts:
