@@ -5,16 +5,14 @@ phases:
         commands:
             # Remember all commands will henceforth execute from `app`
             - cd app
-            # - rm -rf node_modules/sharp
-            - npm install --arch=x64 --platform=linux --target=10.14.1 sharp
-            #- npm install
+            - npm install
     pre_build:
         commands:
             - npm run test
     build:
         commands:
             - npm run build
-            - zip -r camelothub.zip public
+            - zip -r camelothub.zip build
 artifacts:
     files:
         - camelothub.zip
