@@ -15,4 +15,4 @@ phases:
             - zip -r camelothub-$(date "+%Y.%m.%d-%H.%M.%S").zip build
 artifacts:
     files:
-        - camelothub-$(date "+%Y.%m.%d-%H.%M.%S").zip
+        - app/camelothub-$(date "+%Y.%m.%d-%H.%M.%S").zip
