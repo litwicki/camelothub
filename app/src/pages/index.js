@@ -8,7 +8,7 @@ import SEO from "../components/seo"
 const IndexPage = () => (
   <Layout>
     <SEO title="Home" keywords={[`gatsby`, `application`, `react`, `camelot unchained`, `city state entertainment`]} />
-    <h1>CamelotHub</h1>
+    <h1>CamelotHub for Camelot Unchained</h1>
     <p>Camelot Unchained resource, fansite and modding portal.</p>
     <p>Now go build something great.</p>
     <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
