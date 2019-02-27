@@ -14,8 +14,8 @@ phases:
     build:
         commands:
             - npm run build
-            - tar -czvf ../camelothub.tar.gz public
+            - zip -r camelothub.zip public
 artifacts:
     files:
-        - camelothub.tar.gz
+        - camelothub.zip
     discard-paths: yes
