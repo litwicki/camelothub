@@ -13,7 +13,7 @@ phases:
         commands:
             - echo "CODEBUILD_SRC_DIR:" . $CODEBUILD_SRC_DIR
             - npm run build
-            - zip -r camelothub-$(date +%Y-%m-%d).zip build
+            - zip -r camelothub-$(date +%Y%m%d-%h%i%s).zip build
 artifacts:
     files:
-        - camelothub-$(date +%Y-%m-%d).zip
+        - camelothub-$(date +%Y%m%d-%h%i%s).zip
