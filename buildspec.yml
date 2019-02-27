@@ -16,5 +16,4 @@ phases:
             - zip -r camelothub.zip build
 artifacts:
     files:
-        - app/camelothub.zip
-    name: camelothub-$(date +%Y-%m-%d)
+        - camelothub.zip
