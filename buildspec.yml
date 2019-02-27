@@ -16,4 +16,4 @@ phases:
 artifacts:
     files:
         - camelothub.zip
-    discard-paths: yes
+    name: camelothub-$(date +%Y-%m-%d)
