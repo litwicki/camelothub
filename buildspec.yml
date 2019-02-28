@@ -6,12 +6,14 @@ phases:
             # Remember all commands will henceforth execute from `app`
             - cd app
             - npm install
-    pre_build:
-        commands:
-            #- npm run test
+    # pre_build:
+    #     commands:
+    #         - npm run test --no-watch
     build:
         commands:
             - npm run build
+            - ls -la
 artifacts:
     files:
-        - app/build
+        - '**/*'
+    base-directory: app/build
