@@ -6,9 +6,10 @@ phases:
             # Remember all commands will henceforth execute from `app`
             - cd app
             - npm install
-    pre_build:
-        commands:
-            - cp .env.$APP_ENV .env
+    # pre_build:
+    #     commands:
+    #         # @TODO: automate the building of the .env file
+    #         - cp .env.dist .env
     build:
         commands:
             - npm run build

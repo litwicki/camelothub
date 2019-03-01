@@ -1,5 +1,5 @@
 var aws = require('aws-sdk');
-var ep = new aws.Endpoint('s3.amazonaws.com');
+var ep = new aws.Endpoint('s3.us-west-2.amazonaws.com');
 var s3 = new aws.S3({endpoint: ep});
 var mime = require('mime-types');
 var async = require('async');
@@ -15,12 +15,14 @@ exports.handler = function(event, context) {
   var bucket = event.Records[0].s3.bucket.name;
   var key = event.Records[0].s3.object.key;
   
+  bucket = 'camelothub-build';
+  key = 'camelothub.zip';
+  
   s3.getObject({Bucket:bucket, Key:key},
     function(err,data) {
       if (err) {
       
-        console.log('Error getting object ' + key + ' from bucket ' + bucket +
-        '. Make sure they exist and your bucket is in the same region as this function.');
+        console.log('Error getting object ' + key + ' from bucket ' + bucket + '. Make sure they exist and your bucket is in the same region as this function.');
         context.fail('Error', 'Error getting file: ' + err);
         return;
       
