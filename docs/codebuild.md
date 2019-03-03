@@ -24,4 +24,4 @@ Reference: [https://aws.amazon.com/blogs/devops/announcing-local-build-support-f
     codebuild_build.sh [-i image_name] [-a artifact_output_directory] [options]
 
 ### Example Usage
-    codebuild -i aws/codebuild/{BINARY}:{VERSION} -a /path/to/artifacts -s /path/to/src
+    codebuild -i aws/codebuild/{BINARY}:{VERSION} -a /path/to/artifacts -s /path/to/src -b buildspec-filename.yml
