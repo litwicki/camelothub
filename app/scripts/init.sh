@@ -1,5 +1,7 @@
 #!/bin/bash
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
 for i in "$@"
 do
 case $i in
@@ -35,4 +37,7 @@ fi
 
 echo "Building camelothub.com (${ENVIRONMENT}) in $REGION."
 
-aws s3 cp s3://camelothub/${ENVIRONMENT}.config ../app/.env --region ${REGION}
+echo $DIR
+cd $DIR
+aws s3 cp s3://camelothub/${ENVIRONMENT}.config ../.env --region ${REGION}
+pwd
