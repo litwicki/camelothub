@@ -1,0 +1,24 @@
+version: 0.2
+
+env:
+  variables:
+    KEY: "value"
+
+phases:
+    install:
+        commands:
+            # Remember all commands will henceforth execute from `app`
+            - cd app
+            - npm install
+    pre_build:
+        commands:
+            - pwd
+            - bash ./scripts/init.sh --environment=test
+    build:
+        commands:
+            - npm run build
+            - echo $CODEBUILD_BUILD_ARN
+artifacts:
+    files:
+        - '**/*'
+    base-directory: app/build
