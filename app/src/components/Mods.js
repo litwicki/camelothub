@@ -103,7 +103,7 @@ const getSteps = () => {
   ];
 }
 
-class Wizard extends Component {
+class Mods extends Component {
 
   state = {
     activeStep: 0,
@@ -503,4 +503,4 @@ PLEASE NOTE: We reserve the right, at our sole discretion, to change, modify or 
   }
 }
 
-export default withRouter(withStyles(styles)(Wizard));
+export default withRouter(withStyles(styles)(Mods));
