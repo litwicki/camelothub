@@ -1,15 +1,11 @@
 const Menu = [
   {
     label: "Hub",
-    pathname: "/"
+    pathname: "/dashboard"
   },
   {
     label: "Mods",
     pathname: "/mods"
-  },
-  {
-    label: "Account",
-    pathname: "/account"
   }
 
 ];

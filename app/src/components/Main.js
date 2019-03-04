@@ -18,7 +18,7 @@ const styles = theme => ({
     flexGrow: 1,
     backgroundColor: theme.palette.grey['100'],
     overflow: 'hidden',
-    background: `url(${backgroundShape}) no-repeat`,
+    backgroundColor: '#333',
     backgroundSize: 'cover',
     backgroundPosition: '0 400px',
     paddingBottom: 200

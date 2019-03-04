@@ -22,7 +22,7 @@ const styles = theme => ({
     position: 'relative',
     boxShadow: 'none',
     borderBottom: `1px solid ${theme.palette.grey['100']}`,
-    backgroundColor: 'white',
+    backgroundColor: '#252525',
     
   },
   inline: {
