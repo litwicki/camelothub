@@ -15,6 +15,10 @@ import Menu from '@material-ui/core/Menu';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import { fade } from '@material-ui/core/styles/colorManipulator';
+import Icon from '@material-ui/core/Icon';
+import Button from '@material-ui/core/Button';
+import classNames from 'classnames';
+import { loadCSS } from 'fg-loadcss/src/loadCSS';
 
 const styles = theme => ({
   root: {
@@ -68,47 +72,35 @@ const styles = theme => ({
       },
     },
   },
-
+  button: {
+    margin: theme.spacing.unit,
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
+  },
+  rightIcon: {
+    marginLeft: theme.spacing.unit,
+  },
+  iconSmall: {
+    //fontSize: 20,
+  },
 });
 
-function SearchAppBar(props) {
-    const { classes } = props;
-    return (
-      <div className={classes.root}>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
-              <MenuIcon />
-            </IconButton>
-            <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-              Material-UI
-            </Typography>
-            <div className={classes.grow} />
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-              />
-            </div>
-          </Toolbar>
-        </AppBar>
-      </div>
+class NavBar extends React.Component {
+
+  componentDidMount() {
+    loadCSS(
+      'https://use.fontawesome.com/releases/v5.1.0/css/all.css',
+      document.querySelector('#insertion-point-jss'),
     );
   }
-  
-  SearchAppBar.propTypes = {
-    classes: PropTypes.object.isRequired,
-  };
 
-class NavBar extends React.Component {
+  login() {
+    this.props.auth.login();
+  }
+
   state = {
-    auth: true,
+    auth: this.props.auth,
     anchorEl: null,
   };
 
@@ -125,6 +117,7 @@ class NavBar extends React.Component {
   };
 
   render() {
+
     const { classes } = this.props;
     const { auth, anchorEl } = this.state;
     const open = Boolean(anchorEl);
@@ -179,6 +172,18 @@ class NavBar extends React.Component {
                   <MenuItem onClick={this.handleClose}>Profile</MenuItem>
                   <MenuItem onClick={this.handleClose}>My account</MenuItem>
                 </Menu>
+              </div>
+            )}
+            {!auth && (
+              <div>
+                <Button variant="contained" size="small" className={classes.button}>
+                  <Icon className={classNames(classes.icon, 'fa fa-user-circle fa-sm')} color="primary" />
+                  &nbsp;Login
+                </Button>
+                <Button variant="contained" size="small" className={classes.button}>
+                  <Icon className={classNames(classes.icon, 'fa fa-plus fa-sm')} color="secondary" />
+                  &nbsp;Signup
+                </Button>
               </div>
             )}
           </Toolbar>
