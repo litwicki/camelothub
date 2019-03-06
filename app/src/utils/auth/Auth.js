@@ -1,4 +1,4 @@
-import history from '../../utils/history';
+import history from '../history'
 import auth0 from 'auth0-js';
 
 export default class Auth {
@@ -33,7 +33,7 @@ export default class Auth {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
       } else if (err) {
-        history.replace('/home');
+        history.replace('/');
         console.log(err);
         alert(`Error: ${err.error}. Check the console for further details.`);
       }
@@ -59,13 +59,14 @@ export default class Auth {
     this.expiresAt = expiresAt;
 
     // navigate to the home route
-    history.replace('/home');
+    history.replace('/');
   }
 
   renewSession() {
     this.auth0.checkSession({}, (err, authResult) => {
        if (authResult && authResult.accessToken && authResult.idToken) {
          this.setSession(authResult);
+         console.log('Renewing Auth0 session..');
        } else if (err) {
          this.logout();
          console.log(err);
@@ -75,6 +76,7 @@ export default class Auth {
   }
 
   logout() {
+    console.log('Auth0 Logout');
     // Remove tokens and expiry time
     this.accessToken = null;
     this.idToken = null;
@@ -84,13 +86,14 @@ export default class Auth {
     localStorage.removeItem('isLoggedIn');
 
     // navigate to the home route
-    history.replace('/home');
+    history.replace('/');
   }
 
   isAuthenticated() {
     // Check whether the current time is past the
     // access token's expiry time
     let expiresAt = this.expiresAt;
-    return new Date().getTime() < expiresAt;
+    let now = new Date().getTime();
+    return now < expiresAt;
   }
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -7,17 +7,10 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import InputBase from '@material-ui/core/InputBase';
-import SearchIcon from '@material-ui/icons/Search';
 import { fade } from '@material-ui/core/styles/colorManipulator';
-import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
-import classNames from 'classnames';
 import { loadCSS } from 'fg-loadcss/src/loadCSS';
 
 const styles = theme => ({
@@ -86,28 +79,33 @@ const styles = theme => ({
   },
 });
 
-class NavBar extends React.Component {
+class NavBar extends Component {
+
+  login() {
+    this.props.auth.login();
+  }
+
+  logout() {
+    this.props.auth.logout();
+  }
 
   componentDidMount() {
+    const { renewSession } = this.props.auth;
+
+    if (localStorage.getItem('isLoggedIn') === 'true') {
+      renewSession();
+    }
+    
     loadCSS(
       'https://use.fontawesome.com/releases/v5.1.0/css/all.css',
       document.querySelector('#insertion-point-jss'),
     );
   }
 
-  login() {
-    this.props.auth.login();
-  }
-
   state = {
-    auth: this.props.auth,
     anchorEl: null,
   };
-
-  handleChange = event => {
-    this.setState({ auth: event.target.checked });
-  };
-
+  
   handleMenu = event => {
     this.setState({ anchorEl: event.currentTarget });
   };
@@ -118,8 +116,9 @@ class NavBar extends React.Component {
 
   render() {
 
+    const { isAuthenticated } = this.props.auth.isAuthenticated();
     const { classes } = this.props;
-    const { auth, anchorEl } = this.state;
+    const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
 
     return (
@@ -132,20 +131,7 @@ class NavBar extends React.Component {
             <Typography variant="h6" color="inherit" className={classes.grow}>
               CamelotHub
             </Typography>
-            <div className={classes.grow} />
-            <div className={classes.search}>
-                <div className={classes.searchIcon}>
-                <SearchIcon />
-                </div>
-                <InputBase
-                placeholder="Search…"
-                classes={{
-                    root: classes.inputRoot,
-                    input: classes.inputInput,
-                }}
-                />
-            </div>
-            {auth && (
+            {isAuthenticated && (
               <div>
                 <IconButton
                   aria-owns={open ? 'menu-appbar' : undefined}
@@ -171,19 +157,14 @@ class NavBar extends React.Component {
                 >
                   <MenuItem onClick={this.handleClose}>Profile</MenuItem>
                   <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                  {isAuthenticated && (<MenuItem onClick={this.logout.bind(this)}>Logout</MenuItem>)}
                 </Menu>
               </div>
             )}
-            {!auth && (
+            {!isAuthenticated && (
               <div>
-                <Button variant="contained" size="small" className={classes.button}>
-                  <Icon className={classNames(classes.icon, 'fa fa-user-circle fa-sm')} color="primary" />
-                  &nbsp;Login
-                </Button>
-                <Button variant="contained" size="small" className={classes.button}>
-                  <Icon className={classNames(classes.icon, 'fa fa-plus fa-sm')} color="secondary" />
-                  &nbsp;Signup
-                </Button>
+                <Button color="inherit" onClick={this.login.bind(this)}>Login</Button>
+                <Button color="inherit">Signup</Button>
               </div>
             )}
           </Toolbar>
@@ -194,7 +175,7 @@ class NavBar extends React.Component {
 }
 
 NavBar.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(NavBar);
