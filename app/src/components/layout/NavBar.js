@@ -116,7 +116,7 @@ class NavBar extends Component {
 
   render() {
 
-    const { isAuthenticated } = this.props.auth.isAuthenticated();
+    const { isAuthenticated } = this.props.auth;
     const { classes } = this.props;
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
@@ -131,7 +131,7 @@ class NavBar extends Component {
             <Typography variant="h6" color="inherit" className={classes.grow}>
               CamelotHub
             </Typography>
-            {isAuthenticated && (
+            {isAuthenticated() && (
               <div>
                 <IconButton
                   aria-owns={open ? 'menu-appbar' : undefined}
@@ -157,11 +157,11 @@ class NavBar extends Component {
                 >
                   <MenuItem onClick={this.handleClose}>Profile</MenuItem>
                   <MenuItem onClick={this.handleClose}>My account</MenuItem>
-                  {isAuthenticated && (<MenuItem onClick={this.logout.bind(this)}>Logout</MenuItem>)}
+                  <MenuItem onClick={this.logout.bind(this)}>Logout</MenuItem>
                 </Menu>
               </div>
             )}
-            {!isAuthenticated && (
+            {!isAuthenticated() && (
               <div>
                 <Button color="inherit" onClick={this.login.bind(this)}>Login</Button>
                 <Button color="inherit">Signup</Button>
