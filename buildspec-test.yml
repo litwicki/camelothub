@@ -13,7 +13,7 @@ phases:
     pre_build:
         commands:
             - pwd
-            - bash ./scripts/init.sh --environment=test
+            - bash ../scripts/init.sh --environment=test
     build:
         commands:
             - npm run build
