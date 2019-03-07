@@ -58,6 +58,7 @@ export default class Auth {
     this.idToken = authResult.idToken;
     this.expiresAt = expiresAt;
 
+    console.log('setting session');
     // navigate to the home route
     history.replace('/');
   }
@@ -65,6 +66,7 @@ export default class Auth {
   renewSession() {
     console.log('renewing session');
     this.auth0.checkSession({}, (err, authResult) => {
+      console.log('checking session');
        if (authResult && authResult.accessToken && authResult.idToken) {
         console.log('session renewed');
          this.setSession(authResult);
