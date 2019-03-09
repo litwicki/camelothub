@@ -16,7 +16,7 @@ import { loadCSS } from 'fg-loadcss/src/loadCSS';
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    marginBottom: theme.spacing.unit * 4,
+    marginBottom: theme.spacing.unit * 2,
   },
   grow: {
     flexGrow: 1,
@@ -46,7 +46,7 @@ const styles = theme => ({
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing.unit * 3,
+      marginLeft: theme.spacing.unit * 4,
     },
   }
 });
@@ -101,12 +101,12 @@ class NavBar extends Component {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.grow}>
-              CamelotHub
+              {process.env.REACT_APP_TITLE}
             </Typography>
             <div className={classes.navigation}>
-              <Button color="inherit">Camelot Unchained</Button>
-              <Button color="inherit">Mods</Button>
-              <Button color="inherit">C.U.B.E.</Button>
+              <Button color="inherit">Link</Button>
+              <Button color="inherit">Link</Button>
+              <Button color="inherit">Link</Button>
             </div>
             {isAuthenticated() && (
               <div>
