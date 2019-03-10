@@ -5,31 +5,12 @@ import { loadCSS } from 'fg-loadcss/src/loadCSS';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import ListSubheader from '@material-ui/core/ListSubheader';
 import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
-import Lorem from "react-lorem-component";
 import StarBorderIcon from '@material-ui/icons/StarBorder';
+import Divider from '@material-ui/core/Divider';
 
-const LatestModsData = [
-  {
-    img: 'https://loremflickr.com/320/240?random=1',
-    title: <Lorem count="1" sentenceUpperBound="1" />,
-    author: <Lorem count="1" sentenceUpperBound="1" />,
-    cols: 2,
-    featured: true,
-  },
-  {
-    img: 'https://loremflickr.com/320/240?random=2',
-    title: <Lorem count="1" sentenceUpperBound="1" />,
-    author: <Lorem count="1" sentenceUpperBound="1" />,
-  },
-  {
-    img: 'https://loremflickr.com/320/240?random=3',
-    title: <Lorem count="1" sentenceUpperBound="1" />,
-    author: <Lorem count="1" sentenceUpperBound="1" />,
-  }
-];
+import mods from './mods.fixtures';
+import Mod from './Mod';
 
 const styles = theme => ({
   root: {
@@ -39,7 +20,7 @@ const styles = theme => ({
     overflow: 'hidden',
     marginLeft: theme.spacing.unit * 2,
     marginBottom: theme.spacing.unit * 2,
-    backgroundColor: theme.palette.background.paper,
+    //backgroundColor: theme.palette.background.paper,
   },
   gridList: {
     width: 500,
@@ -55,6 +36,9 @@ const styles = theme => ({
   icon: {
     color: 'white',
   },
+  hr: {
+    border: 'none !important'
+  }
 });
 
 class LatestMods extends Component {
@@ -72,12 +56,14 @@ class LatestMods extends Component {
 
     return (
       <div className={classes.root}>
+      <Mod {...mods[0].props} />
+      <hr />
       <GridList cellHeight={200} spacing={1} className={classes.gridList}>
-        {LatestModsData.map(tile => (
-          <GridListTile key={tile.img} cols={tile.featured ? 2 : 1} rows={tile.featured ? 2 : 1}>
-            <img src={tile.img} alt={tile.title} />
+        {mods.slice(0, 5).map(tile => (
+          <GridListTile key={tile.props.img} cols={tile.props.featured ? 2 : 1} rows={tile.props.featured ? 2 : 1}>
+            <img src={tile.props.img} alt={tile.props.title} />
             <GridListTileBar
-              title={tile.title}
+              title={tile.props.title}
               titlePosition="top"
               actionIcon={
                 <IconButton className={classes.icon}>

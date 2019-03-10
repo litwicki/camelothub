@@ -7,16 +7,21 @@
     "@material-ui/icons": "^3.0.2",
     "auth0-js": "^9.10.0",
     "fg-loadcss": "^2.1.0",
+    "node-sass": "^4.11.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
+    "react-redux": "^6.0.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.5"
+    "react-scripts": "2.1.5",
+    "redux": "^4.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cosmos": "cosmos",
+    "cosmos:export": "cosmos-export"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -28,6 +33,11 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "faker": "^4.1.0",
+    "react-cosmos": "^4.7.0",
+    "react-cosmos-fetch-proxy": "^4.6.1",
+    "react-cosmos-redux-proxy": "^4.6.1",
+    "react-cosmos-router-proxy": "^4.6.1",
     "react-lorem-component": "^0.13.0"
   }
 }
