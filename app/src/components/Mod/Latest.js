@@ -7,9 +7,11 @@ import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
+import Typography from '@material-ui/core/Typography';
 
 import mods from './mods.fixtures';
 import Mod from './Mod';
+import './mod.scss'
 
 const styles = theme => ({
   root: {
@@ -22,7 +24,6 @@ const styles = theme => ({
     //backgroundColor: theme.palette.background.paper,
   },
   gridList: {
-    width: 500,
     height: "100%",
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: 'translateZ(0)',
@@ -34,9 +35,6 @@ const styles = theme => ({
   },
   icon: {
     color: 'white',
-  },
-  hr: {
-    border: 'none !important'
   }
 });
 

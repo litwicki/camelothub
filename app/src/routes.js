@@ -24,7 +24,6 @@ export const makeMainRoutes = () => {
             handleAuthentication(props);
             return <Callback {...props} /> 
           }}/>
-          <Route path="/blog/:id" render={(props) => <BlogView auth={auth} {...props} />} />
         </Switch>
       </Router>
   );

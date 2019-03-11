@@ -58,7 +58,7 @@ export default class Auth {
     this.idToken = authResult.idToken;
     this.expiresAt = expiresAt;
     // navigate to the home route
-    //history.replace('/');
+    history.replace('/');
   }
 
   renewSession() {
