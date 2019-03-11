@@ -7,7 +7,6 @@ import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
-import Divider from '@material-ui/core/Divider';
 
 import mods from './mods.fixtures';
 import Mod from './Mod';
@@ -59,7 +58,7 @@ class LatestMods extends Component {
       <Mod {...mods[0].props} />
       <hr />
       <GridList cellHeight={200} spacing={1} className={classes.gridList}>
-        {mods.slice(0, 5).map(tile => (
+        {mods.slice(1, 7).map(tile => (
           <GridListTile key={tile.props.img} cols={tile.props.featured ? 2 : 1} rows={tile.props.featured ? 2 : 1}>
             <img src={tile.props.img} alt={tile.props.title} />
             <GridListTileBar

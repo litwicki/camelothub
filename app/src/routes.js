@@ -1,9 +1,11 @@
 import React from 'react';
-import { Route, Router } from 'react-router-dom';
-import App from './App';
+import { Route, Router, Switch } from 'react-router-dom';
 import Callback from './utils/auth/Callback';
 import Auth from './utils/auth/Auth';
 import history from './utils/history';
+
+import BlogView from './views/blog/view';
+import Home from './views/Home';
 
 const auth = new Auth();
 
@@ -16,13 +18,14 @@ const handleAuthentication = ({location}) => {
 export const makeMainRoutes = () => {
   return (
       <Router history={history}>
-        <div>
-          <Route path="/" render={(props) => <App auth={auth} {...props} />} />
+        <Switch>
+          <Route path="/" render={(props) => <Home auth={auth} {...props} />} />
           <Route path="/callback" render={(props) => {
             handleAuthentication(props);
             return <Callback {...props} /> 
           }}/>
-        </div>
+          <Route path="/blog/:id" render={(props) => <BlogView auth={auth} {...props} />} />
+        </Switch>
       </Router>
   );
 }

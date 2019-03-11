@@ -22,7 +22,7 @@ function LatestBlog(props) {
   
   return (
     <div className={classes.wrapper}>
-      {news.slice(0, 2).map(blog => (
+      {news.slice(0, 5).map(blog => (
         <Blog key={blog.props.id} {...blog.props} />
       ))}
     </div>
