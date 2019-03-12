@@ -13,19 +13,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router/immutable';
-import FontFaceObserver from 'fontfaceobserver';
 import history from 'utils/history';
 import 'sanitize.css/sanitize.css';
-import { Switch, Route } from 'react-router-dom';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
-
-import Header from './components/Header';
-import HomePage from 'containers/HomePage/Loadable';
-import FeaturePage from 'containers/FeaturePage/Loadable';
-import JakePage from 'containers/JakePage/Loadable';
-import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 // Import root app
 import App from 'containers/App';
@@ -34,57 +23,27 @@ import App from 'containers/App';
 import LanguageProvider from 'containers/LanguageProvider';
 
 // Load the favicon and the .htaccess file
+/* eslint-disable import/no-unresolved, import/extensions */
 import '!file-loader?name=[name].[ext]!./images/favicon.ico';
-import 'file-loader?name=.htaccess!./.htaccess'; // eslint-disable-line import/extensions
+import 'file-loader?name=.htaccess!./.htaccess';
+/* eslint-enable import/no-unresolved, import/extensions */
 
 import configureStore from './configureStore';
 
 // Import i18n messages
 import { translationMessages } from './i18n';
 
-// Observe loading of Open Sans (to remove open sans, remove the <link> tag in
-// the index.html file and this observer)
-const openSansObserver = new FontFaceObserver('Open Sans', {});
-
-// When Open Sans is loaded, add a font-family using Open Sans to the body
-openSansObserver.load().then(() => {
-  document.body.classList.add('fontLoaded');
-});
-
 // Create redux store with history
 const initialState = {};
 const store = configureStore(initialState, history);
 const MOUNT_NODE = document.getElementById('app');
 
-const Container = withStyles({
-  root: {
-    padding: '10px',
-    margin: '10px'
-  }
-})(Paper);
-
 const render = messages => {
-
   ReactDOM.render(
     <Provider store={store}>
       <LanguageProvider messages={messages}>
         <ConnectedRouter history={history}>
-          <Grid container spacing={24}>
-            <Grid item xs={12}>
-              <Header />
-            </Grid>
-            <Grid item xs={12}>
-              <Container>
-                <App />
-                <Switch>
-                  <Route exact path="/" component={HomePage} />
-                  <Route path="/features" component={FeaturePage} />
-                  <Route path="/jake" component={JakePage} />
-                  <Route path="" component={NotFoundPage} />
-                </Switch>
-              </Container>
-            </Grid>
-          </Grid>
+          <App />
         </ConnectedRouter>
       </LanguageProvider>
     </Provider>,
@@ -107,12 +66,7 @@ if (!window.Intl) {
   new Promise(resolve => {
     resolve(import('intl'));
   })
-    .then(() =>
-      Promise.all([
-        import('intl/locale-data/jsonp/en.js'),
-        import('intl/locale-data/jsonp/de.js'),
-      ]),
-    ) // eslint-disable-line prettier/prettier
+    .then(() => Promise.all([import('intl/locale-data/jsonp/en.js')]))
     .then(() => render(translationMessages))
     .catch(err => {
       throw err;
