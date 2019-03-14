@@ -7,13 +7,11 @@ env:
 phases:
     install:
         commands:
-            # Remember all commands will henceforth execute from `app`
-            - cd app
             - npm install
     pre_build:
         commands:
             - pwd
-            - bash ../scripts/init.sh --environment=test
+            - bash ./aws/init.sh --environment=test
     build:
         commands:
             - npm run build
@@ -21,4 +19,4 @@ phases:
 artifacts:
     files:
         - '**/*'
-    base-directory: app/build
+    base-directory: build
