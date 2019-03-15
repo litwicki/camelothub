@@ -11,13 +11,9 @@ import Tab from '@material-ui/core/Tab';
 import PhoneIcon from '@material-ui/icons/Phone';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import PersonPinIcon from '@material-ui/icons/PersonPin';
-import HelpIcon from '@material-ui/icons/Help';
-import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
-import ThumbDown from '@material-ui/icons/ThumbDown';
-import ThumbUp from '@material-ui/icons/ThumbUp';
 
 import { FormattedMessage } from 'react-intl';
-import messages from './messages';
+import menu from './lang';
 
 const styles = theme => ({
   root: {
@@ -27,7 +23,7 @@ const styles = theme => ({
     flexGrow: 1,
   },
   mainMenu: {
-    marginLeft: 2,
+    marginLeft: 100,
     position: 'absolute'
   },
   menuButton: {
@@ -73,22 +69,13 @@ class ButtonAppBar extends React.Component {
             {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
               <MenuIcon />
             </IconButton> */}
-            <Typography variant="h6" color="inherit" className={classes.grow}>
+            <Typography variant="h6" color="inherit" className={classes.grow} component={Link} to="/">
               Litwicki
             </Typography>
-            <Tabs
-                className={classes.mainMenu}
-                value={value}
-                onChange={this.handleChange}
-                variant="scrollable"
-                scrollButtons="on"
-                indicatorColor="primary"
-                textColor="inherit"
-              >
-                <Tab label="Home" icon={<PhoneIcon />} component={Link} to="/" />
-                <Tab label="Features" icon={<FavoriteIcon />} component={Link} to="/features" />
-                <Tab label="Jake" icon={<PersonPinIcon />} component={Link} to="/jake" />
-              </Tabs>
+            <div className={classes.mainMenu}>
+              <Button color="inherit" component={Link} to="/features">Features</Button>
+              <Button color="inherit" component={Link} to="/jake">Jake</Button>
+            </div>
             <Button color="inherit">Login</Button>
             <Button color="inherit">Logout</Button>
           </Toolbar>

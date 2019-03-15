@@ -74,7 +74,9 @@ const render = messages => {
               <Header />
             </Grid>
             <Grid item xs={12}>
-              <Container>
+              <Container
+                elevation="0"
+              >
                 <App />
                 <Switch>
                   <Route exact path="/" component={HomePage} />

@@ -12,10 +12,10 @@ import { Helmet } from 'react-helmet';
 export default function App() {
   return (
     <Helmet
-      titleTemplate="%s - A Camelot Unchained Portal"
-      defaultTitle="Camelot Hub"
+      titleTemplate="%s"
+      defaultTitle={process.env.REACT_APP_NAME}
     >
-      <meta name="description" content="A Camelot Hub Unchained modding website." />
+      <meta name="description" content="A website." />
     </Helmet>
   );
 }
