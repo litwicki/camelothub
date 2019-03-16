@@ -59,7 +59,8 @@ const MOUNT_NODE = document.getElementById('app');
 const Container = withStyles({
   root: {
     padding: '10px',
-    margin: '10px'
+    margin: '10px',
+    boxShadow: 'none !important'
   }
 })(Paper);
 
@@ -75,7 +76,6 @@ const render = messages => {
             </Grid>
             <Grid item xs={12}>
               <Container
-                elevation="0"
               >
                 <App />
                 <Switch>
