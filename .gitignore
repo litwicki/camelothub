@@ -9,4 +9,7 @@ stats.json
 npm-debug.log
 .idea
 .env
-app/.env
+.env.*
+
+# Configs
+app/config/*.json

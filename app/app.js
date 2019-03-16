@@ -21,11 +21,10 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
 
+import AppRoutes from './utils/router';
+
 import Header from './components/Header';
-import HomePage from 'containers/HomePage/Loadable';
-import FeaturePage from 'containers/FeaturePage/Loadable';
-import JakePage from 'containers/JakePage/Loadable';
-import NotFoundPage from 'containers/NotFoundPage/Loadable';
+
 
 // Import root app
 import App from 'containers/App';
@@ -75,15 +74,9 @@ const render = messages => {
               <Header />
             </Grid>
             <Grid item xs={12}>
-              <Container
-              >
+              <Container>
                 <App />
-                <Switch>
-                  <Route exact path="/" component={HomePage} />
-                  <Route path="/features" component={FeaturePage} />
-                  <Route path="/jake" component={JakePage} />
-                  <Route path="" component={NotFoundPage} />
-                </Switch>
+                <AppRoutes />
               </Container>
             </Grid>
           </Grid>
