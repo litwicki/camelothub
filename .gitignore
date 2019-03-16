@@ -1,3 +1,12 @@
-.idea
+# Don't check auto-generated stuff into git
+coverage
+build
+node_modules
+stats.json
+
+# Cruft
 .DS_Store
-*.log
+npm-debug.log
+.idea
+.env
+app/.env

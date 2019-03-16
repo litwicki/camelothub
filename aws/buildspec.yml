@@ -1,0 +1,22 @@
+version: 0.2
+
+env:
+  variables:
+    KEY: "value"
+
+phases:
+    install:
+        commands:
+            - npm install
+    pre_build:
+        commands:
+            - pwd
+            - bash ./aws/init.sh --env=prod --region=us-west-2
+    build:
+        commands:
+            - npm run build
+            - echo $CODEBUILD_BUILD_ARN
+artifacts:
+    files:
+        - '**/*'
+    base-directory: build
