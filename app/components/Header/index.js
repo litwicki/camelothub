@@ -1,21 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom'
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import PhoneIcon from '@material-ui/icons/Phone';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import PersonPinIcon from '@material-ui/icons/PersonPin';
+import { Link } from 'react-router-dom';
 
-import { FormattedMessage } from 'react-intl';
-import menu from './lang';
-
-const styles = theme => ({
+const styles = {
   root: {
     flexGrow: 1,
   },
@@ -24,7 +16,7 @@ const styles = theme => ({
   },
   mainMenu: {
     marginLeft: 100,
-    position: 'absolute'
+    position: 'absolute',
   },
   menuButton: {
     marginLeft: -12,
@@ -32,35 +24,22 @@ const styles = theme => ({
   },
   menuItem: {
     marginLeft: 0,
-    position: 'relative'
-  }
-});
-
-function TabContainer(props) {
-  return (
-    <Typography component="div" style={{ padding: 8 * 3 }}>
-      {props.children}
-    </Typography>
-  );
-}
-
-TabContainer.propTypes = {
-  children: PropTypes.node.isRequired,
+    position: 'relative',
+  },
 };
-class ButtonAppBar extends React.Component {
-  
-  state = {
-    value: 0,
-  };
 
-  handleChange = (event, value) => {
-    this.setState({ value });
-  };
+class ButtonAppBar extends React.Component {
+  login() {
+    this.props.auth.login();
+  }
+
+  logout() {
+    this.props.auth.logout();
+  }
 
   render() {
-    
     const { classes } = this.props;
-    const { value } = this.state;
+    const { isAuthenticated } = this.props.auth;
 
     return (
       <div className={classes.root}>
@@ -69,25 +48,45 @@ class ButtonAppBar extends React.Component {
             {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
               <MenuIcon />
             </IconButton> */}
-            <Typography variant="h6" color="inherit" className={classes.grow} component={Link} to="/">
+            <Typography
+              variant="h6"
+              color="inherit"
+              className={classes.grow}
+              component={Link}
+              to="/"
+            >
               Litwicki
             </Typography>
             <div className={classes.mainMenu}>
-              <Button color="inherit" component={Link} to="/features">Features</Button>
-              <Button color="inherit" component={Link} to="/jake">Jake</Button>
+              <Button color="inherit" component={Link} to="/features">
+                Features
+              </Button>
+              <Button color="inherit" component={Link} to="/jake">
+                Jake
+              </Button>
             </div>
-            <Button color="inherit">Login</Button>
-            <Button color="inherit">Logout</Button>
+            {!isAuthenticated() && (
+              <Button color="inherit" onClick={this.login.bind(this)}>
+                Login
+              </Button>
+            )}
+            {isAuthenticated() && (
+              <Button color="inherit" onClick={this.logout.bind(this)}>
+                Log Out
+              </Button>
+            )}
           </Toolbar>
         </AppBar>
       </div>
     );
   }
-  
 }
 
 ButtonAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
+  login: PropTypes.func,
+  logout: PropTypes.fun,
+  auth: PropTypes.object,
 };
 
 export default withStyles(styles)(ButtonAppBar);

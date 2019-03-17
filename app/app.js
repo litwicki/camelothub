@@ -16,21 +16,21 @@ import { ConnectedRouter } from 'connected-react-router/immutable';
 import FontFaceObserver from 'fontfaceobserver';
 import history from 'utils/history';
 import 'sanitize.css/sanitize.css';
-import { Switch, Route } from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 
+import App from 'containers/App';
+import LanguageProvider from 'containers/LanguageProvider';
 import AppRoutes from './utils/router';
+
+import Auth from './utils/auth0';
 
 import Header from './components/Header';
 
-
 // Import root app
-import App from 'containers/App';
 
 // Import Language Provider
-import LanguageProvider from 'containers/LanguageProvider';
 
 // Load the favicon and the .htaccess file
 import '!file-loader?name=[name].[ext]!./images/favicon.ico';
@@ -40,6 +40,7 @@ import configureStore from './configureStore';
 
 // Import i18n messages
 import { translationMessages } from './i18n';
+const auth = new Auth();
 
 // Observe loading of Open Sans (to remove open sans, remove the <link> tag in
 // the index.html file and this observer)
@@ -59,19 +60,18 @@ const Container = withStyles({
   root: {
     padding: '10px',
     margin: '10px',
-    boxShadow: 'none !important'
-  }
+    boxShadow: 'none !important',
+  },
 })(Paper);
 
 const render = messages => {
-
   ReactDOM.render(
     <Provider store={store}>
       <LanguageProvider messages={messages}>
         <ConnectedRouter history={history}>
           <Grid container spacing={24}>
             <Grid item xs={12}>
-              <Header />
+              <Header auth={auth} />
             </Grid>
             <Grid item xs={12}>
               <Container>

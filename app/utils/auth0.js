@@ -1,19 +1,24 @@
-import history from './history';
 import auth0 from 'auth0-js';
+import history from './history';
 
-import config from '../config/auth0.json'
+import config from '../config/auth0.json';
+if (process.env.NODE_ENV !== 'production') {
+  console.log('Auth0 Config', config);
+}
 
 export default class Auth {
   accessToken;
+
   idToken;
-  expiresAt;
+
+  expiresAt = new Date().getTime(); 
 
   auth0 = new auth0.WebAuth({
     domain: config.AUTH0_DOMAIN,
     clientID: config.AUTH0_CLIENT_ID,
     redirectUri: config.AUTH0_CALLBACK_URL,
     responseType: config.AUTH0_RESPONSE_TYPE,
-    scope: config.AUTH0_SCOPE
+    scope: config.AUTH0_SCOPE,
   });
 
   constructor() {
@@ -35,7 +40,7 @@ export default class Auth {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
       } else if (err) {
-        history.replace('/home');
+        history.replace('/');
         console.log(err);
         alert(`Error: ${err.error}. Check the console for further details.`);
       }
@@ -51,28 +56,32 @@ export default class Auth {
   }
 
   setSession(authResult) {
+    console.log('setting session..');
     // Set isLoggedIn flag in localStorage
     localStorage.setItem('isLoggedIn', 'true');
 
     // Set the time that the access token will expire at
-    let expiresAt = (authResult.expiresIn * 1000) + new Date().getTime();
+    const expiresAt = authResult.expiresIn * 1000 + new Date().getTime();
     this.accessToken = authResult.accessToken;
     this.idToken = authResult.idToken;
     this.expiresAt = expiresAt;
 
     // navigate to the home route
-    history.replace('/home');
+    history.replace('/');
   }
 
   renewSession() {
+    console.log('renewing...');
     this.auth0.checkSession({}, (err, authResult) => {
-       if (authResult && authResult.accessToken && authResult.idToken) {
-         this.setSession(authResult);
-       } else if (err) {
-         this.logout();
-         console.log(err);
-         alert(`Could not get a new token (${err.error}: ${err.error_description}).`);
-       }
+      if (authResult && authResult.accessToken && authResult.idToken) {
+        this.setSession(authResult);
+      } else if (err) {
+        this.logout();
+        console.log(err);
+        alert(
+          `Could not get a new token (${err.error}: ${err.error_description}).`,
+        );
+      }
     });
   }
 
@@ -86,13 +95,14 @@ export default class Auth {
     localStorage.removeItem('isLoggedIn');
 
     // navigate to the home route
-    history.replace('/home');
+    history.replace('/');
   }
 
   isAuthenticated() {
     // Check whether the current time is past the
     // access token's expiry time
-    let expiresAt = this.expiresAt;
+    const { expiresAt } = this.expiresAt;
+    console.log('isAuthenticated', new Date().getTime() < expiresAt);
     return new Date().getTime() < expiresAt;
   }
 }
