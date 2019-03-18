@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import NormalA from 'components/A';
+import Link from '@material-ui/core/Link';
 
-const IssueLink = styled(NormalA)`
+const IssueLink = styled(Link)`
   height: 100%;
   color: black;
   display: flex;

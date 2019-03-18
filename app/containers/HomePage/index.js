@@ -19,7 +19,6 @@ import {
   makeSelectLoading,
   makeSelectError,
 } from 'containers/App/selectors';
-import H2 from 'components/H2';
 import ReposList from 'components/ReposList';
 import AtPrefix from './AtPrefix';
 import CenteredSection from './CenteredSection';
@@ -32,6 +31,7 @@ import { changeUsername } from './actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import { Typography } from '@material-ui/core';
 
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.PureComponent {
@@ -63,17 +63,17 @@ export class HomePage extends React.PureComponent {
         </Helmet>
         <div>
           <CenteredSection>
-            <H2>
+            <Typography>
               <FormattedMessage {...messages.startProjectHeader} />
-            </H2>
+            </Typography>
             <p>
               <FormattedMessage {...messages.startProjectMessage} />
             </p>
           </CenteredSection>
           <Section>
-            <H2>
+            <Typography>
               <FormattedMessage {...messages.trymeHeader} />
-            </H2>
+            </Typography>
             <Form onSubmit={this.props.onSubmitForm}>
               <label htmlFor="username">
                 <FormattedMessage {...messages.trymeMessage} />

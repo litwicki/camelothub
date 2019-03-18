@@ -7,11 +7,11 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 
-import H1 from 'components/H1';
 import messages from './messages';
 import List from './List';
 import ListItem from './ListItem';
 import ListItemTitle from './ListItemTitle';
+import { Typography } from '@material-ui/core';
 
 export default class FeaturePage extends React.Component {
   // Since state and props are static,
@@ -31,9 +31,9 @@ export default class FeaturePage extends React.Component {
             content="Feature page of React.js Boilerplate application"
           />
         </Helmet>
-        <H1>
+        <Typography>
           <FormattedMessage {...messages.header} />
-        </H1>
+        </Typography>
         <List>
           <ListItem>
             <ListItemTitle>

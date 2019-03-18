@@ -5,8 +5,7 @@
  */
 import React from 'react';
 import { Helmet } from 'react-helmet';
-
-import H1 from 'components/H1';
+import { Typography } from '@material-ui/core';
 
 export default class JakePage extends React.Component {
   // Since state and props are static,
@@ -25,9 +24,9 @@ export default class JakePage extends React.Component {
             content="Feature page of React.js Boilerplate application"
           />
         </Helmet>
-        <H1>
+        <Typography>
           Jake Page!!!
-        </H1>
+        </Typography>
         
       </div>
     );

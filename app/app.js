@@ -12,20 +12,20 @@ import '@babel/polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { Router, Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router/immutable';
 import FontFaceObserver from 'fontfaceobserver';
 import history from 'utils/history';
 import 'sanitize.css/sanitize.css';
-import { Switch, Route } from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
-
 import Header from './components/Header';
-import HomePage from 'containers/HomePage/Loadable';
-import FeaturePage from 'containers/FeaturePage/Loadable';
-import JakePage from 'containers/JakePage/Loadable';
-import NotFoundPage from 'containers/NotFoundPage/Loadable';
+
+import HomePage from './containers/HomePage';
+import FeaturePage from './containers/FeaturePage';
+import JakePage from './containers/JakePage';
+import NotFoundPage from './containers/NotFoundPage';
 
 // Import root app
 import App from 'containers/App';
@@ -75,15 +75,16 @@ const render = messages => {
               <Header />
             </Grid>
             <Grid item xs={12}>
-              <Container
-              >
+              <Container>
                 <App />
-                <Switch>
-                  <Route exact path="/" component={HomePage} />
-                  <Route path="/features" component={FeaturePage} />
-                  <Route path="/jake" component={JakePage} />
-                  <Route path="" component={NotFoundPage} />
-                </Switch>
+                <Router history={history}>
+                  <Switch>
+                    <Route exact path="/" component={HomePage} />
+                    <Route path="/features" component={FeaturePage} />
+                    <Route path="/jake" component={JakePage} />
+                    <Route path="" component={NotFoundPage} />
+                  </Switch>
+                </Router>
               </Container>
             </Grid>
           </Grid>
