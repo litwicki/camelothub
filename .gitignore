@@ -10,3 +10,6 @@ npm-debug.log
 .idea
 .env
 app/.env
+
+app/config/*.js
+app/config/*.json
