@@ -85,7 +85,7 @@ class ButtonAppBar extends React.Component {
 ButtonAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
   login: PropTypes.func,
-  logout: PropTypes.fun,
+  logout: PropTypes.func,
   auth: PropTypes.object,
 };
 

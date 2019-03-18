@@ -1,24 +1,20 @@
 import auth0 from 'auth0-js';
 import history from './history';
-
-import config from '../config/auth0.json';
-if (process.env.NODE_ENV !== 'production') {
-  console.log('Auth0 Config', config);
-}
+import { AUTH_CONFIG } from '../config/auth0';
 
 export default class Auth {
   accessToken;
 
   idToken;
 
-  expiresAt = new Date().getTime(); 
+  expiresAt;
 
   auth0 = new auth0.WebAuth({
-    domain: config.AUTH0_DOMAIN,
-    clientID: config.AUTH0_CLIENT_ID,
-    redirectUri: config.AUTH0_CALLBACK_URL,
-    responseType: config.AUTH0_RESPONSE_TYPE,
-    scope: config.AUTH0_SCOPE,
+    domain: AUTH_CONFIG.AUTH0_DOMAIN,
+    clientID: AUTH_CONFIG.AUTH0_CLIENT_ID,
+    redirectUri: AUTH_CONFIG.AUTH0_CALLBACK_URL,
+    responseType: 'token id_token',
+    scope: 'openid',
   });
 
   constructor() {
@@ -56,7 +52,6 @@ export default class Auth {
   }
 
   setSession(authResult) {
-    console.log('setting session..');
     // Set isLoggedIn flag in localStorage
     localStorage.setItem('isLoggedIn', 'true');
 
@@ -66,12 +61,11 @@ export default class Auth {
     this.idToken = authResult.idToken;
     this.expiresAt = expiresAt;
 
-    // navigate to the home route
+    // navigate to the  route
     history.replace('/');
   }
 
   renewSession() {
-    console.log('renewing...');
     this.auth0.checkSession({}, (err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
@@ -94,15 +88,14 @@ export default class Auth {
     // Remove isLoggedIn flag from localStorage
     localStorage.removeItem('isLoggedIn');
 
-    // navigate to the home route
+    // navigate to the  route
     history.replace('/');
   }
 
   isAuthenticated() {
     // Check whether the current time is past the
     // access token's expiry time
-    const { expiresAt } = this.expiresAt;
-    console.log('isAuthenticated', new Date().getTime() < expiresAt);
+    const expiresAt = this.expiresAt;
     return new Date().getTime() < expiresAt;
   }
 }

@@ -21,6 +21,13 @@ export const AppRoutes = () => (
   <Router history={history}>
     <Switch>
       <Route
+        path="/callback"
+        render={props => {
+          handleAuthentication(props);
+          return <Callback {...props} />;
+        }}
+      />
+      <Route
         exact
         path="/"
         render={props => <HomePage auth={auth} {...props} />}
@@ -36,13 +43,6 @@ export const AppRoutes = () => (
       <Route
         path=""
         render={props => <NotFoundPage auth={auth} {...props} />}
-      />
-      <Route
-        path="/callback"
-        render={props => {
-          handleAuthentication(props);
-          return <Callback {...props} />;
-        }}
       />
     </Switch>
   </Router>
