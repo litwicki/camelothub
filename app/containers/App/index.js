@@ -10,12 +10,8 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 
 export default function App() {
-  
   return (
-    <Helmet
-      titleTemplate="%s"
-      defaultTitle={process.env.REACT_APP_NAME}
-    >
+    <Helmet titleTemplate="%s" defaultTitle={process.env.REACT_APP_NAME}>
       <meta name="description" content="A website." />
     </Helmet>
   );

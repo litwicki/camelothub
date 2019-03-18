@@ -29,17 +29,8 @@ const styles = {
 };
 
 class ButtonAppBar extends React.Component {
-  login() {
-    this.props.auth.login();
-  }
-
-  logout() {
-    this.props.auth.logout();
-  }
-
   render() {
     const { classes } = this.props;
-    const { isAuthenticated } = this.props.auth;
 
     return (
       <div className={classes.root}>
@@ -65,16 +56,6 @@ class ButtonAppBar extends React.Component {
                 Jake
               </Button>
             </div>
-            {!isAuthenticated() && (
-              <Button color="inherit" onClick={this.login.bind(this)}>
-                Login
-              </Button>
-            )}
-            {isAuthenticated() && (
-              <Button color="inherit" onClick={this.logout.bind(this)}>
-                Log Out
-              </Button>
-            )}
           </Toolbar>
         </AppBar>
       </div>

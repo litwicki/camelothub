@@ -6,8 +6,9 @@ import FeaturePage from 'containers/FeaturePage/Loadable';
 import JakePage from 'containers/JakePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import history from './history';
-import Auth from './auth0';
 import Callback from './callback';
+
+import Auth from './auth';
 
 const auth = new Auth();
 
@@ -24,14 +25,10 @@ export const AppRoutes = () => (
         path="/callback"
         render={props => {
           handleAuthentication(props);
-          return <Callback {...props} />;
+          <Callback auth={auth} {...props} />;
         }}
       />
-      <Route
-        exact
-        path="/"
-        render={props => <HomePage auth={auth} {...props} />}
-      />
+      <Route path="/" render={props => <HomePage auth={auth} {...props} />} />
       <Route
         path="/features"
         render={props => <FeaturePage auth={auth} {...props} />}

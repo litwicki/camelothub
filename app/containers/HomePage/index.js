@@ -11,7 +11,9 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import {
@@ -42,10 +44,28 @@ export class HomePage extends React.PureComponent {
     if (this.props.username && this.props.username.trim().length > 0) {
       this.props.onSubmitForm();
     }
+    const { renewSession } = this.props.auth;
+
+    if (localStorage.getItem('isLoggedIn') === 'true') {
+      renewSession();
+    }
+  }
+
+  goTo(route) {
+    this.props.history.replace(`/${route}`);
+  }
+
+  login() {
+    this.props.auth.login();
+  }
+
+  logout() {
+    this.props.auth.logout();
   }
 
   render() {
     const { loading, error, repos } = this.props;
+    const { isAuthenticated } = this.props.auth;
     const reposListProps = {
       loading,
       error,
@@ -63,6 +83,16 @@ export class HomePage extends React.PureComponent {
         </Helmet>
         <div>
           <CenteredSection>
+            {!isAuthenticated() && (
+              <Button color="inherit" onClick={this.login.bind(this)}>
+                Login
+              </Button>
+            )}
+            {isAuthenticated() && (
+              <Button color="inherit" onClick={this.logout.bind(this)}>
+                Log Out
+              </Button>
+            )}
             <H2>
               <FormattedMessage {...messages.startProjectHeader} />
             </H2>

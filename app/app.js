@@ -10,6 +10,7 @@ import '@babel/polyfill';
 
 // Import all the third party stuff
 import React from 'react';
+import { Route, Router, Switch } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router/immutable';
@@ -19,16 +20,14 @@ import 'sanitize.css/sanitize.css';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
-
 import App from 'containers/App';
 import LanguageProvider from 'containers/LanguageProvider';
 import AppRoutes from './utils/router';
-
-import Auth from './utils/auth0';
-
 import Header from './components/Header';
+import Callback from './utils/callback';
 
-// Import root app
+// Authentication
+import Auth from './utils/auth';
 
 // Import Language Provider
 
@@ -41,6 +40,11 @@ import configureStore from './configureStore';
 // Import i18n messages
 import { translationMessages } from './i18n';
 const auth = new Auth();
+const handleAuthentication = ({ location }) => {
+  if (/access_token|id_token|error/.test(location.hash)) {
+    auth.handleAuthentication();
+  }
+};
 
 // Observe loading of Open Sans (to remove open sans, remove the <link> tag in
 // the index.html file and this observer)
@@ -71,7 +75,7 @@ const render = messages => {
         <ConnectedRouter history={history}>
           <Grid container spacing={24}>
             <Grid item xs={12}>
-              <Header auth={auth} />
+              <Header />
             </Grid>
             <Grid item xs={12}>
               <Container>
