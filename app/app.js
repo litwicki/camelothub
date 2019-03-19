@@ -12,23 +12,15 @@ import '@babel/polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router/immutable';
 import FontFaceObserver from 'fontfaceobserver';
 import history from 'utils/history';
 import 'sanitize.css/sanitize.css';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
-import Header from './components/Header';
-
-import HomePage from './containers/HomePage';
-import FeaturePage from './containers/FeaturePage';
-import JakePage from './containers/JakePage';
-import NotFoundPage from './containers/NotFoundPage';
+import Header from './components/Header/Header';
 
 // Import root app
-import App from 'containers/App';
+import App from './containers/App/App';
 
 // Import Language Provider
 import LanguageProvider from 'containers/LanguageProvider';
@@ -56,13 +48,6 @@ const initialState = {};
 const store = configureStore(initialState, history);
 const MOUNT_NODE = document.getElementById('app');
 
-const Container = withStyles({
-  root: {
-    padding: '10px',
-    margin: '10px',
-    boxShadow: 'none !important'
-  }
-})(Paper);
 
 const render = messages => {
 
@@ -75,17 +60,7 @@ const render = messages => {
               <Header />
             </Grid>
             <Grid item xs={12}>
-              <Container>
-                <App />
-                <Router history={history}>
-                  <Switch>
-                    <Route exact path="/" component={HomePage} />
-                    <Route path="/features" component={FeaturePage} />
-                    <Route path="/jake" component={JakePage} />
-                    <Route path="" component={NotFoundPage} />
-                  </Switch>
-                </Router>
-              </Container>
+              <App />
             </Grid>
           </Grid>
         </ConnectedRouter>
@@ -99,7 +74,7 @@ if (module.hot) {
   // Hot reloadable React components and translation json files
   // modules.hot.accept does not accept dynamic dependencies,
   // have to be constants at compile-time
-  module.hot.accept(['./i18n', 'containers/App'], () => {
+  module.hot.accept(['./i18n', 'containers/App/App'], () => {
     ReactDOM.unmountComponentAtNode(MOUNT_NODE);
     render(translationMessages);
   });
