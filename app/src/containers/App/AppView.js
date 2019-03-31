@@ -1,12 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import Header from '../Header/Header';
 import HomePage from '../../components/HomePage/HomePage';
 import AboutPage from '../../components/AboutPage/AboutPage';
 import NotFoundPage from '../../components/NotFoundPage/NotFoundPage';
 import * as AuthService from '../../utils/AuthService';
+
+function PrivateRoute ({component: Component, auth, ...rest}) {
+  return (
+    <Route
+      {...rest}
+      render={(props) => auth === true
+        ? <Component {...props} />
+        : <Redirect to={{pathname: '/login', state: {from: props.location}}} />}
+    />
+  )
+}
 
 class AppView extends Component {
   static propTypes = {
@@ -46,6 +57,7 @@ class AppView extends Component {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/about" component={AboutPage} />
+          <PrivateRoute auth={AuthService.loggedIn()} path='/jake' component={AboutPage} />
           <Route component={NotFoundPage} />
         </Switch>
       </div>
