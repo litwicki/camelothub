@@ -1,15 +1,50 @@
-# Don't check auto-generated stuff into git
-coverage
-build
-node_modules
-stats.json
+# File created using '.gitignore Generator' for Visual Studio Code: https://bit.ly/vscode-gig
 
-# Cruft
+# Created by https://www.gitignore.io/api/macos,visualstudiocode,web
+# Edit at https://www.gitignore.io/?templates=macos,visualstudiocode,web
+
+### macOS ###
+# General
 .DS_Store
-npm-debug.log
-.idea
-.env
-app/.env
+.AppleDouble
+.LSOverride
 
-app/config/*.js
-app/config/*.json
+# Icon must end with two \r
+Icon
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+
+# End of https://www.gitignore.io/api/macos,visualstudiocode,web
+
+# Custom rules (everything added below won't be overriden by 'Generate .gitignore File' if you use 'Update' option)
+
+node_modules
+*.json
