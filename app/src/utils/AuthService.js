@@ -1,19 +1,19 @@
 import Auth0Lock from 'auth0-lock';
 import jwtDecode from 'jwt-decode';
 
-import config from './config';
+import { CONFIG } from '../config/config';
 
 // Configure Auth0 lock
-export const lock = new Auth0Lock(config.AUTH0_CLIENT_ID, config.AUTH0_DOMAIN, {
+export const lock = new Auth0Lock(CONFIG.AUTH0_CLIENT_ID, CONFIG.AUTH0_DOMAIN, {
   auth: {
-    redirectUrl: config.REDIRECT_URL,
+    redirectUrl: CONFIG.AUTH0_CALLBACK_URL,
     responseType: 'token id_token'
   },
   theme: {
-    primaryColor: '#b81b1c'
+    primaryColor: CONFIG.LOGIN_PRIMARY_COLOR
   },
   languageDictionary: {
-    title: 'React Redux Auth0 Kit'
+    title: CONFIG.LOGIN_TITLE
   }
 });
 
