@@ -1,11 +1,48 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+import Button from '@material-ui/core/Button';
+import Avatar from '@material-ui/core/Avatar';
 
 import * as AuthService from '../../utils/AuthService';
-import './Header.css';
+
+const styles = {
+  root: {
+    flexGrow: 1,
+  },
+  grow: {
+    flexGrow: 1,
+  },
+  avatar: {
+    margin: 10,
+  }
+};
 
 class HeaderView extends Component {
+
+  state = {
+    anchorEl: null,
+  };
+
+  handleChange = event => {
+    this.setState({ auth: event.target.checked });
+  };
+
+  handleMenu = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
+
   static propTypes = {
     history: PropTypes.shape({
       push: PropTypes.func.isRequired
@@ -31,31 +68,70 @@ class HeaderView extends Component {
   };
 
   render() {
+
     const { auth } = this.props;
+    const { classes } = this.props;
+    const { anchorEl } = this.state;
+    const open = Boolean(anchorEl);
+
+    console.log('auth obj',auth);
+    
     return (
-      <div>
-        <h1>React Redux Auth0 Kit</h1>
-        <ul className="list-inline">
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-        </ul>
-        {auth.isAuthenticated ? (
-          <div>
-            <img src={auth.profile.picture} height="40px" alt="profile" />
-            <span>Welcome, {auth.profile.nickname}</span>
-            <button onClick={this.handleLogoutClick}>Logout</button>
-          </div>
-        ) : (
-          <button onClick={this.handleLoginClick}>Login</button>
-        )}
-        {auth.error && <p>{JSON.stringify(auth.error)}</p>}
+      <div className={classes.root}>
+        <AppBar position="static">
+          <Toolbar>
+            <Typography variant="h6" color="inherit" className={classes.grow}>
+              Brand
+            </Typography>
+            {auth && (
+              <div>
+                {auth.isAuthenticated === false ? (
+                  <Button onClick={this.handleLoginClick}>Login</Button>
+                ) : (
+                  <div>
+                      <IconButton
+                      aria-owns={open ? 'menu-appbar' : undefined}
+                      aria-haspopup="true"
+                      onClick={this.handleMenu}
+                      color="inherit"
+                    >
+                      {auth.profile.picture === false ? (
+                        <AccountCircle />
+                      ) : (
+                        <Avatar alt={auth.profile.nickname} src={auth.profile.picture} className={classes.avatar} />
+                      )}
+                    </IconButton>
+                    <Menu
+                      id="menu-appbar"
+                      anchorEl={anchorEl}
+                      anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                      }}
+                      transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                      }}
+                      open={open}
+                      onClose={this.handleClose}
+                    >
+                      <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                      <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                      <MenuItem onClick={this.handleLogoutClick}>Logout</MenuItem>
+                    </Menu>
+                  </div>
+                )}
+              </div>
+            )}
+          </Toolbar>
+        </AppBar>
       </div>
     );
   }
 }
 
-export default HeaderView;
+HeaderView.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(HeaderView);
