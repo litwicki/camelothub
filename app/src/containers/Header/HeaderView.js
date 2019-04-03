@@ -42,8 +42,12 @@ const styles = theme => ({
   icon: {
     margin: theme.spacing.unit * 2,
   },
-  grow: {
-    flexGrow: 1,
+  brand: {
+    flexGrow: 1
+  },
+  logo: {
+    textDecoration: 'none !important',
+    color: 'white !important',
   },
   avatar: {
     margin: 10,
@@ -112,17 +116,25 @@ class HeaderView extends React.Component {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
-            <Typography variant="h6" color="inherit" className={classes.grow}>
-              <Link to="/">Brand</Link>
+            <Typography variant="h6" color="inherit" className={classes.brand}>
+              <Link to="/" className={classes.logo}>CamelotHub</Link>
             </Typography>
             <div className={classes.menuWrapper}>
               <Button variant="text" size="small" className={classes.button} component={Link} to="/about">
                 <DeviceHubIcon className={classes.buttonIcon} />
-                Mods
+                UI Mods
               </Button>
               <Button variant="text" size="small" className={classes.button} component={Link} to="/jake">
                 <BuildIcon className={classes.buttonIcon} />
                 C.U.B.E.
+              </Button>
+              <Button variant="text" size="small" className={classes.button} component={Link} to="/jake">
+                <BuildIcon className={classes.buttonIcon} />
+                Crafting
+              </Button>
+              <Button variant="text" size="small" className={classes.button} component={Link} to="/jake">
+                <BuildIcon className={classes.buttonIcon} />
+                Class Builder
               </Button>
             </div>
             {auth && (
